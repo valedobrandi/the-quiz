@@ -1,2 +1,15 @@
-node_modules
+#frontend
+frontend/node_modules
+frontend/dist
 .env
+
+#backend
+backend/node_modules
+backend/build
+node_modules.tar.gz
+.env
+*.http
+
+#main
+script.sh
+
