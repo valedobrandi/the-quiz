@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import UserController from '../controllers/UserController';
+import UserController from '../controllers/user.controller';
 
 const userController = new UserController();
 
@@ -21,6 +21,15 @@ router.get(
     res: Response,
     next: NextFunction,
   ) => userController.auth(req, res, next),
+);
+
+router.post(
+  '/register',
+  (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => userController.register(req, res, next),
 );
 
 export default router;

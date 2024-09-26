@@ -1,4 +1,4 @@
-import * as bcrypt  from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 import { QueryInterface } from 'sequelize';
 
 const SALT_ROUNDS = process.env.BCRYPT_SALT_ROUNDS || 10;
@@ -8,8 +8,7 @@ export default {
     await queryInterface.bulkInsert('users', [
       {
         username: 'Admin',
-        email: 'admin@admin.com',
-        password: bcrypt.hashSync('secret_admin', SALT_ROUNDS)
+        password: bcrypt.hashSync('secret_admin', SALT_ROUNDS),
       },
     ], {});
   },
@@ -17,4 +16,4 @@ export default {
   down: async (queryInterface: QueryInterface) => {
     await queryInterface.bulkDelete('users', {});
   },
-}
+};

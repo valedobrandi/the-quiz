@@ -1,7 +1,8 @@
 import * as express from 'express';
 import 'express-async-errors';
-import router from './routes';
 import * as cookieParser from 'cookie-parser';
+import * as cors from 'cors';
+import router from './routes';
 import errorMiddleware from './middlewares/errorMiddleware';
 
 class App {
@@ -23,17 +24,13 @@ class App {
   }
 
   private config():void {
-    const accessControl: express.RequestHandler = (_req, res, next) => {
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS,PUT,PATCH');
-      res.header('Access-Control-Allow-Headers', '*');
-      next();
+    const corsOptions = {
+      origin: 'http://172.24.0.3:5173',
     };
 
     this.app.use(express.json());
-    this.app.use(accessControl);
+    this.app.use(cors(corsOptions));
     this.app.use(cookieParser());
-
   }
 
   private routes(): void {

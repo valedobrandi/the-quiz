@@ -3,16 +3,15 @@ import {
   Model,
   InferAttributes,
   InferCreationAttributes,
+  CreationOptional,
 } from 'sequelize';
 import db from '.';
 
 class SequelizeUser extends Model<InferAttributes<SequelizeUser>,
 InferCreationAttributes<SequelizeUser>> {
-  declare id: number;
+  declare id: CreationOptional<number>;
 
   declare username: string;
-
-  declare email: string;
 
   declare password: string;
 }
@@ -20,15 +19,10 @@ InferCreationAttributes<SequelizeUser>> {
 SequelizeUser.init({
   id: {
     type: DataTypes.INTEGER,
-    allowNull: false,
     primaryKey: true,
     autoIncrement: true,
   },
   username: {
-    type: DataTypes.STRING(50),
-    allowNull: false,
-  },
-  email: {
     type: DataTypes.STRING(50),
     allowNull: false,
   },
