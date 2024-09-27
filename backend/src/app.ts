@@ -25,7 +25,7 @@ class App {
 
   private config():void {
     const corsOptions = {
-      origin: 'http://172.24.0.3:5173',
+      origin: ['http://172.24.0.3:5173', 'http://172.24.0.2:5173'],
     };
 
     this.app.use(express.json());
