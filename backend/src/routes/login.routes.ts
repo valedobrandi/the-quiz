@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import UserController from '../controllers/user.controller';
+import * as middlewares from '../middlewares';
 
 const userController = new UserController();
 
@@ -25,6 +26,11 @@ router.get(
 
 router.post(
   '/register',
+  (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => middlewares.validateLogin(req, res, next),
   (
     req: Request,
     res: Response,
