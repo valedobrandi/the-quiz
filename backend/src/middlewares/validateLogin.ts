@@ -3,9 +3,10 @@ import validateLoginFields from './validations/loginValidation';
 import mapStatusHTTP from '../utils/mapStatusHTTP';
 
 const validateLogin = (req: Request, res: Response, next: NextFunction) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
+ 
   try {
-    const error = validateLoginFields({ email, password });
+    const error = validateLoginFields({ username, password });
 
     if (error) {
       return res.status(mapStatusHTTP(error.status))

@@ -6,23 +6,23 @@ const userController = new UserController();
 
 const router = Router();
 
-router.get(
-  '/linkdin',
-  (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) => userController.singIn(req, res, next),
-);
+// router.get(
+//   '/linkdin',
+//   (
+//     req: Request,
+//     res: Response,
+//     next: NextFunction,
+//   ) => userController.singIn(req, res, next),
+// );
 
-router.get(
-  '/linkedin/callback',
-  (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) => userController.auth(req, res, next),
-);
+// router.get(
+//   '/linkedin/callback',
+//   (
+//     req: Request,
+//     res: Response,
+//     next: NextFunction,
+//   ) => userController.auth(req, res, next),
+// );
 
 router.post(
   '/register',
@@ -36,6 +36,15 @@ router.post(
     res: Response,
     next: NextFunction,
   ) => userController.register(req, res, next),
+);
+
+router.get(
+  '/access',
+  (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => userController.access(req, res, next),
 );
 
 export default router;

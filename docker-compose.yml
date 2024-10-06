@@ -4,10 +4,8 @@ services:
     build: ./frontend
     ports:
       - 3000:3000
-    working_dir: /frontend
     volumes:
       - ./frontend:/frontend
-      - /frontend/node_modules
     env_file:
       - .env
   backend:
@@ -15,10 +13,8 @@ services:
     build: ./backend
     ports:
       - 3001:3001
-    working_dir: /backend
     volumes:
       - ./backend:/backend
-      - /backend/node_modules
     env_file:
       - .env
   db:

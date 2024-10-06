@@ -1,8 +1,8 @@
-/* eslint-disable class-methods-use-this */
 import { IUsers } from '../Interfaces/users/IUsers';
 import UserModel from '../models/UserModel';
 import { IUserModel } from '../Interfaces/users/IUserModel';
 import { ServiceResponse } from '../Interfaces/ServiceResponse';
+import { jwtSign } from '../utils/jwt.util';
 
 export default class UserService {
   constructor(private userModel: IUserModel = new UserModel()) {}
@@ -10,11 +10,11 @@ export default class UserService {
   public async register(
     username: string,
     password: string,
-  ): Promise<ServiceResponse<IUsers | null>> {
+  ): Promise<ServiceResponse<string>> {
     const user = await this.userModel.register(username, password);
-    if (!user) {
-      return { status: 'CONFLICT', data: { message: 'User already exists}' } };
-    }
-    return { status: 'CREATED', data: user };
+
+    const token = jwtSign({ username: user });
+
+    return { status: 'CREATED', data: token };
   }
 }

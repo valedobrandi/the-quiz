@@ -7,11 +7,11 @@ import UserModel from '../models/UserModel';
 const authorization = async (req: Request, res: Response, next: NextFunction) => {
   const userModel = new UserModel();
   try {
-    const Bearer = req.header('authorization');
+    const Bearer = req.cookies.access_token
     if (!Bearer) return res.status(401).json({ message: 'Token not found' });
 
     const payload = jwtVerify(Bearer);
-    const user = await userModel.findUser(payload.email);
+    const user = await userModel.findUser(payload.username);
     if (!user) return res.status(401).json({ message: 'Token must be a valid token' });
 
     return next();

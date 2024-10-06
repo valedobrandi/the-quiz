@@ -1,7 +1,7 @@
 import { ServiceResponse } from '../../Interfaces/ServiceResponse';
 import schema from './schema';
 
-type ValidateLoginFields = { email: string, password: string };
+type ValidateLoginFields = { username: string, password: string };
 
 const validateLoginFields = (keysObjectValidate: ValidateLoginFields):
 ServiceResponse<null> | void => {

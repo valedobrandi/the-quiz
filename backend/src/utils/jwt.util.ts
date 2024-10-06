@@ -1,11 +1,9 @@
-// src/utils/jwt.util.ts
-
 import { sign, verify } from 'jsonwebtoken';
 
 const secret = process.env.JWT_SECRET || 'secret';
 
 type TokenPayload = {
-  email: string,
+  username: string,
 };
 
 function jwtSign(payload: TokenPayload): string {
