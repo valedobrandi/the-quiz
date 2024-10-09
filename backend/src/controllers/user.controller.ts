@@ -28,14 +28,28 @@ export default class UserController {
   //   console.log(req.query);
   // }
 
-  public async userAccess(req: Request, res: Response, next: NextFunction) {
+  public async logIn(req: Request, res: Response, next: NextFunction) {
     try {
 
+      const { username, password } = req.body;
 
-      
-      return res
-        .status(mapStatusHTTP('SUCCESSFUL'))
-        .json({ message: "access" });
+      const {status, data} = await this.userService.logIn(username, password);
+
+      if (status === 'NOT_FOUND' || status === 'UNAUTHORIZED') {
+        return res.status(mapStatusHTTP(status)).json(data);
+      }
+
+      if (status === 'SUCCESSFUL') {
+        const token = jwtSign({ username: data });
+
+        return res
+        .cookie("access_token", `Bearer ${token}`, {
+          httpOnly: true,
+        })
+        .status(mapStatusHTTP(status))
+        .json(data)
+      }
+
     } catch (error) {
       next(error);
     }
@@ -52,8 +66,6 @@ export default class UserController {
       return res
         .cookie("access_token", `Bearer ${data}`, {
           httpOnly: true,
-          signed: true,
-          secure: true,
         })
         .status(mapStatusHTTP(status))
         .json({ message: "User created" });

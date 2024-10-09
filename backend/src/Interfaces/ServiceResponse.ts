@@ -10,7 +10,7 @@ type ServiceResponseErrorType =
 | 'UNPROCESSABLE CONTENT';
 
 export type ServiceResponseError = {
-  status: ServiceResponseErrorType,
+  status: 'NOT_FOUND' | 'UNAUTHORIZED',
   data: ServiceMessage
 };
 

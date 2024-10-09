@@ -11,16 +11,11 @@ const SALT_ROUNDS = env.BCRYPT_SALT_ROUNDS;
 export default class UserModel implements IUserModel {
   private model = SequelizeUser;
 
-  async findOne(username: string): Promise<IUsers | null> {
-    const user = await this.model.findOne({ where: { username } });
-    if (!user) return null;
-    return user.dataValues;
-  }
-
   async register(username: string, password: string): Promise<string> {
-    const existingUser = await this.findOne(username);
+    
+    const response = await this.getUser(username);
 
-    if (existingUser) return existingUser.username;
+    if (response) return response.username;
 
     if (!SALT_ROUNDS) throw new Error('SALT_ROUNDS is not defined');
     
@@ -31,9 +26,12 @@ export default class UserModel implements IUserModel {
     return newUser.dataValues.username;
   }
 
-  async findUser(username: string): Promise<IUsers | null> {
-    const dbData = await this.model.findOne({ where: { username } });
-    if (!dbData) return null;
-    return dbData.dataValues;
+  async getUser(username: string): Promise<IUsers | null> {
+
+    const response = await this.model.findOne({ where: { username } });
+
+    if (!response) return null;
+
+    return response.dataValues;
   }
 }

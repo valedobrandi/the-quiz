@@ -10,6 +10,7 @@ class App {
 
   constructor() {
     this.app = express();
+    this.app.use(cookieParser());
 
     this.config();
 
@@ -25,15 +26,14 @@ class App {
 
   private config():void {
     const corsOptions = {
-      origin: ['http://172.18.0.2:5173', 'http://172.18.0.3:5173'],
+      origin: ['http://172.18.0.2:5173', 'http://172.18.0.3:5173', 'http://172.18.0.4:5173'],
       credentials: true,
     };
 
-    this.app.use(express.json());
     this.app.use(cors(corsOptions));
-    this.app.use(cookieParser('cookie_secret'));
+    this.app.use(express.json());
   }
-
+  
   private routes(): void {
     this.app.use(router);
   }

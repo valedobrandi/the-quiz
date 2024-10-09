@@ -38,13 +38,22 @@ router.post(
   ) => userController.register(req, res, next),
 );
 
-router.get(
+router.post(
   '/access',
   (
     req: Request,
     res: Response,
     next: NextFunction,
-  ) => userController.access(req, res, next),
+  ) => userController.logIn(req, res, next),
+);
+
+router.post(
+  '/access/token',
+  (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => middlewares.authorization(req, res, next),
 );
 
 export default router;
