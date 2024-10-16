@@ -11,9 +11,9 @@ const SALT_ROUNDS = env.BCRYPT_SALT_ROUNDS;
 export default class UserModel implements IUserModel {
   private model = SequelizeUser;
 
-  async register(username: string, password: string): Promise<string> {
+  async register(username: string, email: string, password: string): Promise<string> {
     
-    const response = await this.getUser(username);
+    const response = await this.getByEmail(email);
 
     if (response) return response.username;
 
@@ -21,12 +21,21 @@ export default class UserModel implements IUserModel {
     
     const coded = await bcrypt.hash(password, parseInt(SALT_ROUNDS));
 
-    const newUser = await this.model.create({ username, password: coded });
+    const newUser = await this.model.create({ username, email, password: coded });
     
     return newUser.dataValues.username;
   }
 
-  async getUser(username: string): Promise<IUsers | null> {
+  async getByEmail(email: string): Promise<IUsers | null> {
+
+    const response = await this.model.findOne({ where: { email } });
+
+    if (!response) return null;
+
+    return response.dataValues;
+  }
+
+  async getByUsername(username: string): Promise<IUsers | null> {
 
     const response = await this.model.findOne({ where: { username } });
 

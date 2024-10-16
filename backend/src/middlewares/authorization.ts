@@ -13,7 +13,7 @@ const authorization = async (req: Request, res: Response, next: NextFunction) =>
     if (!Bearer) return res.status(401).json({ message: 'Token not found' });
 
     const payload = jwtVerify(Bearer);
-    const user = await userModel.getUser(payload.username);
+    const user = await userModel.getByEmail(payload.username);
     if (!user) return res.status(401).json({ message: 'Token must be a valid token' });
 
     res.locals.user = user;

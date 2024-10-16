@@ -14,6 +14,10 @@ export default {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      email: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+      },
       password: {
         type: DataTypes.STRING,
       },

@@ -9,7 +9,7 @@ describe('UNIT TEST - USERS MODEL', function () {
 
     it('01 - Register a user with success', async function () {
   
-      const register = await usersModel.register('test', 'test');
+      const register = await usersModel.register('test','test', 'test');
   
       expect(register).to.be.an('object');
       expect(register).to.contain({ username: 'test'});

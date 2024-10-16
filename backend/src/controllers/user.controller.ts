@@ -31,24 +31,21 @@ export default class UserController {
   public async logIn(req: Request, res: Response, next: NextFunction) {
     try {
 
-      const { username, password } = req.body;
+      const { username, email, password } = req.body;
 
-      const {status, data} = await this.userService.logIn(username, password);
+      const {status, data} = await this.userService.logIn(username,email, password);
 
-      if (status === 'NOT_FOUND' || status === 'UNAUTHORIZED') {
+      if (status === 'NOT_FOUND' || 'UNAUTHORIZED') {
         return res.status(mapStatusHTTP(status)).json(data);
       }
 
-      if (status === 'SUCCESSFUL') {
-        const token = jwtSign({ username: data });
-
         return res
-        .cookie("access_token", `Bearer ${token}`, {
+        .cookie("access_token", `Bearer ${data}`, {
           httpOnly: true,
         })
         .status(mapStatusHTTP(status))
         .json(data)
-      }
+     
 
     } catch (error) {
       next(error);
@@ -57,18 +54,26 @@ export default class UserController {
 
   public async register(req: Request, res: Response, next: NextFunction) {
     try {
-      const { username, password } = req.body;
-      const { status, data } = await this.userService.register(
+
+      const { username, email, password } = req.body;
+
+      const { status, data } = await this
+      .userService.register(
         username,
+        email,
         password
       );
+
+      if (status === 'INVALID_DATA') {
+        return res.status(mapStatusHTTP(status)).json(data);
+      }
 
       return res
         .cookie("access_token", `Bearer ${data}`, {
           httpOnly: true,
         })
         .status(mapStatusHTTP(status))
-        .json({ message: "User created" });
+        .json({ username: username});
     } catch (error) {
       next(error);
     }
