@@ -8,8 +8,7 @@ export default class RankingController {
 
   public async getRankingByUserId(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = req.params.userId;
-      const ranking = await this.rankingService.getRankingByUserId(parseInt(userId));
+      const ranking = await this.rankingService.getRanking();
       return res.status(mapStatusHTTP('OK')).json(ranking);
     } catch (error) {
       next(error);

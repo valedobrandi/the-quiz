@@ -1,5 +1,4 @@
 import * as bcrypt from "bcryptjs";
-import e = require("express");
 import { QueryInterface } from "sequelize";
 
 const SALT_ROUNDS = process.env.BCRYPT_SALT_ROUNDS;

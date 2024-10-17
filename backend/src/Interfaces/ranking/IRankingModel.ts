@@ -1,5 +1,5 @@
-import { IRanking } from "./IRanking";
+import SequelizeRanking from "../../database/models/SequelizeRanking";
 
 export interface IRankingModel {
-  getRankingByUserId(userId: number): Promise<IRanking | null>;
+  getRanking(): Promise<SequelizeRanking[] | null> ;
 }

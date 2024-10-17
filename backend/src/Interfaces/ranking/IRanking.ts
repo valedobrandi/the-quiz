@@ -1,5 +1,4 @@
 export interface IRanking {
-    userId: number;
-    ranking: number;
-    points: number;
+    username: number;
+    score: number;
 }

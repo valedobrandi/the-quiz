@@ -3,30 +3,24 @@ import {
   Model,
   InferAttributes,
   InferCreationAttributes,
-  ForeignKey,
 } from 'sequelize';
 import db from '.';
-import { IUsers } from '../../Interfaces/users/IUsers';
-import SequelizeUser from './SequelizeUsers';
-
 
 class SequelizeRanking extends Model<InferAttributes<SequelizeRanking>,
 InferCreationAttributes<SequelizeRanking>> {
 
-  declare userId: ForeignKey<IUsers['id']>
+  declare username: string;
   
-  declare ranking: number;
-  
-  declare points: number;
+  declare score: number;
 
 }
 
 SequelizeRanking.init({
-  ranking: {
-    type: DataTypes.INTEGER,
+  username: {
+    type: DataTypes.STRING,
     primaryKey: true,
   },
-  points: {
+  score: {
     type: DataTypes.INTEGER,
   },
 }, {
@@ -35,7 +29,5 @@ SequelizeRanking.init({
   timestamps: false,
   underscored: true,
 });
-
-SequelizeRanking.belongsTo(SequelizeUser);
 
 export default SequelizeRanking;

@@ -8,7 +8,7 @@ const rankingController = new RankingController();
 const router = Router();
 
 router.get(
-    '/:userId',
+    '/',
     (
         req: Request,
         res: Response,

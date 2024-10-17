@@ -3,16 +3,16 @@ import { QueryInterface } from "sequelize";
 export default {
   up: async (queryInterface: QueryInterface) => {
     await queryInterface.bulkInsert(
-      "ranking",
+      "rankings",
       [
-        { userId: 1, ranking: 1, points: 100 },
-        { userId: 2, ranking: 2, points: 90 },
+        { username: "bbb", score: 10 },
+        { username: "bbb", score: 20 },
       ],
       {}
     );
   },
 
   down: async (queryInterface: QueryInterface) => {
-    await queryInterface.bulkDelete("ranking", {});
+    await queryInterface.bulkDelete("rankings", {});
   },
 };
