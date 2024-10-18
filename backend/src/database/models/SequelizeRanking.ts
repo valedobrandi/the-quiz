@@ -19,9 +19,11 @@ SequelizeRanking.init({
   username: {
     type: DataTypes.STRING,
     primaryKey: true,
+    allowNull: false,
   },
   score: {
     type: DataTypes.INTEGER,
+    allowNull: false,
   },
 }, {
   sequelize: db,

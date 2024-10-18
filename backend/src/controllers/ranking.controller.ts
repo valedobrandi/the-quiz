@@ -6,10 +6,22 @@ import mapStatusHTTP from '../utils/mapStatusHTTP';
 export default class RankingController {
   constructor(private rankingService = new RankingService()) {}
 
-  public async getRankingByUserId(req: Request, res: Response, next: NextFunction) {
+  public async getRanking(req: Request, res: Response, next: NextFunction) {
     try {
-      const ranking = await this.rankingService.getRanking();
-      return res.status(mapStatusHTTP('OK')).json(ranking);
+      
+      const {status, data} = await this.rankingService.getRanking();
+      
+      return res.status(mapStatusHTTP(status)).json(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public async register(req: Request, res: Response, next: NextFunction) {
+    try {
+      const {username, score} = req.body;
+      const {status, data} = await this.rankingService.register(username, score);
+      return res.status(mapStatusHTTP(status)).json(data);
     } catch (error) {
       next(error);
     }

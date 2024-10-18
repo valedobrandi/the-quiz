@@ -13,7 +13,16 @@ router.get(
         req: Request,
         res: Response,
         next: NextFunction,
-    ) => rankingController.getRankingByUserId(req, res, next),
+    ) => rankingController.getRanking(req, res, next),
+)
+
+router.post(
+    '/',
+    (
+        req: Request,
+        res: Response,
+        next: NextFunction,
+    ) => rankingController.register(req, res, next),
 )
 
 export default router;
