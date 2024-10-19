@@ -20,8 +20,6 @@ export default class QuizService {
       const getIndexCorrectAnswer = Object.keys(
         question.correct_answers
       ).indexOf(getCorrectAnswers[0]);
-
-      console.log(getIndexCorrectAnswer);
       
       return {
         ...question,
