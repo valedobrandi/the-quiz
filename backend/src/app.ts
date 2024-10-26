@@ -3,7 +3,10 @@ import 'express-async-errors';
 import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
 import router from './routes';
+import sequelize from './database/models';
 import errorMiddleware from './middlewares/errorMiddleware';
+
+const CORS_ORIGIN = process.env.CORS_CONFIG || 'http://localhost:3000'
 
 class App {
   public app: express.Express;
@@ -26,8 +29,8 @@ class App {
 
   private config():void {
     const corsOptions = {
-      origin: ['http://172.18.0.2:5173', 'http://172.18.0.3:5173', 'http://172.18.0.4:5173'],
-      credentials: true,
+      origin: [CORS_ORIGIN],
+      optionsSuccessStatus: 200
     };
 
     this.app.use(cors(corsOptions));
@@ -36,6 +39,15 @@ class App {
   
   private routes(): void {
     this.app.use(router);
+  }
+
+  public async assertDatabaseConnection(): Promise<void> {
+    try {
+      await sequelize.authenticate();
+      console.log('Connection has been established successfully.');
+    } catch (error) {
+      console.log('Unable to connect to the database:', error);
+    }
   }
 
   public start(PORT: string | number): void {

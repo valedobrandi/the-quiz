@@ -1,4 +1,4 @@
 export interface IRanking {
-    username: number;
+    username: string;
     score: number;
 }

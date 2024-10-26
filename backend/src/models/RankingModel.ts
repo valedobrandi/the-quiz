@@ -11,7 +11,7 @@ export default class RankingModel implements IRankingModel {
     return ranking.map(rank => rank.dataValues);
   }
 
-  public async register(username: string, score: number): Promise<undefined> {
+  public async register(username: string, score: number): Promise<void> {
     await this.model.create({username, score});
   }
 }
